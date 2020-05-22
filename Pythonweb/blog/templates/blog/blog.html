@@ -1,0 +1,25 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Bai viet {% endblock %}
+
+
+{% block content %}
+{% for post in Posts %}
+    <h4>{{post.date|date:"d-m-Y"}}<a href="{% url 'post' post.id %}">{{post.title}}</a></h4>
+    {% if post.image %}
+        <img src="{{post.image.url}}" width="500px" height="300px" />
+    {% else %}
+        <img src= "/media/download.png" width="500px" height="300px" />
+    {% endif %}
+{% endfor %}
+<br/>
+
+{% if page_obj.has_previous %}
+    <a href="{{request.path}}?page={{page_obj.previous_page_number}}">Ngay truoc</a>|
+{% endif %}
+
+{% if page_obj.has_next %}
+    <a href="{{request.path}}?page={{page_obj.next_page_number}}">Tiep theo</a>
+{% endif %}
+
+{% endblock %}
